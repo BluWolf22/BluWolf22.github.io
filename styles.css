@@ -1,0 +1,106 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    background: url('theater-background.jpg') no-repeat center center fixed;
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: rgb(0, 255, 98); /* All text in green for visibility */
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%; /* Ensure full height to center things vertically */
+    position: absolute; /* Adjust positioning */
+    top: 0;
+    left: 0;
+}
+
+.game-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%; /* Ensure full width */
+    height: 100%; /* Ensure full height to maintain centering */
+    position: relative; /* Adjust positioning within body */
+}
+
+.actors-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    gap: 20px;
+    width: 100%;
+    max-width: 600px; /* Ensure max width for center alignment */
+    margin: 0 auto; /* Center grid horizontally */
+    justify-content: center; /* Center grid items horizontally */
+}
+
+.actor {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.actor img {
+    width: 100px;
+    height: 150px;
+    object-fit: cover;
+    border: 2px solid #000;
+    border-radius: 5px;
+}
+
+.final-screen {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%; /* Match the parent to center properly */
+}
+
+.reset-button {
+    padding: 10px 20px;
+    font-size: 18px;
+    cursor: pointer;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 5px;
+}
+
+.result-screen {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+}
+
+.result-screen img {
+    width: 300px; /* Adjust width as needed */
+    height: auto; /* Maintain aspect ratio */
+    margin-top: 20px; /* Space above the poster */
+}
+
+.result-screen button {
+    margin-top: 20px; /* Space above the button */
+    padding: 10px 20px;
+    font-size: 18px;
+    cursor: pointer;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 5px;
+}
+

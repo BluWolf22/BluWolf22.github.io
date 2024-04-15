@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guess the Movie from Actors</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="content">
+        <h1 id="welcomeTitle">Welcome to Guess the Movie from Actors</h1>
+        <button onclick="startGame()" id="startButton">Start Game</button>
+    </div>
+    <script>
+        const movies = [
+            { name: "Inception", actors: [
+                {name: "Leonardo DiCaprio", image: "leonardo.jpg"},
+                {name: "Ellen Page", image: "ellen.jpg"},
+                {name: "Tom Hardy", image: "tom.jpg"},
+                {name: "Joseph Gordon-Levitt", image: "joseph.jpg"},
+                {name: "Marion Cotillard", image: "marion.jpg"},
+                {name: "Ken Watanabe", image: "ken.jpg"}
+            ], poster: "inception.jpg"},
+            { name: "Interstellar", actors: [
+                {name: "Matthew McConaughey", image: "mcConaughey.jpg"},
+                {name: "Jessica Chastain", image: "chastain.jpg"},
+                {name: "Timothée Chalamet", image: "chalamet.jpg"},
+                {name: "Anne Hathaway", image: "hathaway.jpg"},
+                {name: "John Lithgow", image: "lithgow.jpg"},
+                {name: "Mackenzie Foy", image: "foy.jpg"}
+            ], poster: "interstellar.jpg"},
+            { name: "The Avengers", actors: [
+                {name: "Robert Downey Jr.", image: "robert.jpg"},
+                {name: "Scarlett Johansson", image: "scarlett.jpg"},
+                {name: "Chris Evans", image: "chris.jpg"},
+                {name: "Mark Ruffalo", image: "mark.jpg"},
+                {name: "Chris Hemsworth", image: "chris_h.jpg"},
+                {name: "Jeremy Renner", image: "jeremy.jpg"}
+            ], poster: "avengers.jpg"}
+        ];
+        let currentMovieIndex = 0;
+        let score = 0;
+
+        function startGame() {
+            currentMovieIndex = 0;
+            score = 0;
+            document.getElementById('welcomeTitle').style.display = 'none';
+            document.getElementById('startButton').style.display = 'none';
+            displayNextMovie();
+        }
+
+        function displayNextMovie() {
+            if (currentMovieIndex >= movies.length) {
+                displayFinalScore();
+                return;
+            }
+            const movie = movies[currentMovieIndex];
+            document.body.innerHTML = `
+                <div id="gameContainer" class="game-container">
+                    <div id="actorsGrid" class="actors-grid"></div>
+                    <input type="text" id="userGuess" placeholder="Enter the movie title...">
+                    <button onclick="checkAnswer()" id="submitGuess">Submit Guess</button>
+                </div>
+            `;
+            displayMovie(movie);
+        }
+
+        function displayMovie(movie) {
+            const actorsGrid = document.getElementById('actorsGrid');
+            actorsGrid.innerHTML = '';
+            movie.actors.forEach(actor => {
+                const actorDiv = document.createElement('div');
+                actorDiv.className = 'actor';
+                const img = document.createElement('img');
+                img.src = actor.image;
+                img.alt = actor.name;
+                img.style.width = '100px';
+                img.style.height = '150px';
+                const name = document.createElement('div');
+                name.textContent = actor.name;
+                name.className = 'actor-name';
+                actorDiv.appendChild(img);
+                actorDiv.appendChild(name);
+                actorsGrid.appendChild(actorDiv);
+            });
+        }
+
+        function checkAnswer() {
+            const userGuess = document.getElementById('userGuess').value.toLowerCase();
+            const movie = movies[currentMovieIndex];
+            const correct = userGuess === movie.name.toLowerCase();
+            if (correct) {
+                score++;
+            }
+            displayAnswerScreen(correct, movie);
+            currentMovieIndex++;
+        }
+
+        function displayAnswerScreen(correct, movie) {
+            const buttonLabel = currentMovieIndex < movies.length - 1 ? "Next Movie" : "Show Score";
+            document.body.innerHTML = `
+                <div class="result-screen">
+                    <h1>${correct ? "Correct! Well Done!" : "Incorrect! The correct answer was " + movie.name}.</h1>
+                    <img src="${movie.poster}" alt="Movie Poster" style="width: 300px; height: auto; display: block; margin: 0 auto;">
+                    <button onclick="${correct ? 'displayNextMovie()' : 'displayNextMovie()'}" style="display: block; margin: 20px auto;">${buttonLabel}</button>
+                </div>
+            `;
+        }
+
+        function displayFinalScore() {
+            document.body.innerHTML = `
+                <div class="final-screen">
+                    <div class="final-title">Game Over! Your score: ${score} out of ${movies.length}</div>
+                </div>
+            `;
+        }
+
+        function resetGame() {
+            location.reload();
+        }
+    </script>
+</body>
+</html>
